@@ -8,16 +8,20 @@ body {
   background-color: black;
 }
 
-.home-container {
+h1, h2,  p, a {
   display: flex;
+  flex-wrap: wrap;
   align-content: flex-start;
-  flex-direction: column;
-  margin: 50px;
+  justify-content: center;
+  text-decoration: none;
+  color:rgba(255, 255, 255, .75);
+  margin:  10px;
 }
 
 h1 {
   color: rgba(255, 255, 255, .75);
 }
-p {
-  color:  rgba(255, 255, 255, .75);
+
+button {
+  margin: 20px;
 }

@@ -1,0 +1,39 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  border: none;
+}
+
+body {
+  background-color: black;
+}
+
+h1, ul, a, div {
+  display: flex;
+  flex-wrap: wrap;
+  text-decoration: none;
+  color:rgba(255, 255, 255, .75);
+  margin:  10px;
+}
+
+.button {
+  display: flex;
+}
+
+.timer {
+  display: flex;
+}
+
+.array-container {
+  display: flex;
+  width: 100%
+}
+
+h1 {
+  color: rgba(255, 255, 255, .75);
+}
+p {
+  color:  rgba(255, 255, 255, .75);
+  font-size: larger;
+  margin: 15px;
+}

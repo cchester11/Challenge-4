@@ -1,3 +1,25 @@
+const question = document.querySelector("#question");
+const choices = Array.from(document.querySelectorAll(".text"));
+const totalPoints = 100;
+const totalQuestions = 5;
+const scoreText = document.querySelector('#score');
+const timer = document.querySelector('#countdown');
+let currentQuestion = {};
+let selectedAnswer = true;
+let score = 0;
+let timeLeft = 59;
+let questionsLeft = 0;
+let availableQuestions = [];
+const buttonHover = document.querySelector('button')
+
+var hoverOver = buttonHover.addEventListener('mouseover', function() {
+  buttonHover.setAttribute('style', 'background-color: red;')
+})
+
+var hoverOff = buttonHover.addEventListener('mouseleave', function() {
+  buttonHover.setAttribute('style', 'background-color: rgba(255, 255, 255, .75);')
+})
+
 // Question array to be pulled by functions
 let questions = [
   {
@@ -39,3 +61,89 @@ let questions = [
     answer: 3,
   }
 ];
+
+function startGame() {
+  questionsLeft = 0;
+  score = 0;
+  timeLeft= 59;
+  availableQuestions = questions;
+  countdown();
+  generateQuestion();
+}
+
+function countdown() {
+var timeInterval = setInterval(function() {
+  if (timeLeft > 1) {
+    timer.innerHTML = "seconds remaining:" + timeLeft;
+    timeLeft--;
+  } else {
+    timer.innerHTML = "Times up! 0:00";
+    clearInterval(timeInterval);
+    return window.location.assign('../results/results-page.html');
+  }
+}, 1000)
+
+};
+
+function generateQuestion() {
+  if(availableQuestions.length === 0 || questionsLeft > totalQuestions ) {
+    localStorage.setItem('mostRecentScore', score)
+    return window.location.assign('../results/results-page.html')
+  }
+
+  questionsLeft++;
+
+  const questionIndex = Math.floor(Math.random() * availableQuestions.length)
+  currenQuestion =  availableQuestions[questionIndex]
+  question.innerText = currentQuestion.question
+
+  choices.forEach(choice => {
+    const number = choice.dataset['number']
+    choice.innerText = currentQuestion['choice' + number]
+  })
+
+  availableQuestions.splice(questionIndex, 1);
+
+  selectedAnswer = true;
+
+};
+
+choice.forEach(choice => {
+  choice.addEventListener('click', x => {
+    const selectedChoice = x.target;
+    if (!selectedAnswer) return selectedAnswer = false;
+    const selected = selectedChoice.dataset['number'];
+    let applySelected = selected == currentQuestion.answer ? 'correct' : 'incorrect';
+
+    if (applySelected === 'correct') {
+      incrementScore (totalPoints);
+    } else {
+      decrementTime();
+    }
+
+    selectedChoice.parentElement.classList.add(applySelected);
+
+    setTimeOut(
+      () => {
+      selectedChoice.parentElement.classList.remove
+      (applySelected)
+      generateQuestion();
+
+    }, 
+      1000);
+  })
+})
+
+function incrementScore(num) {
+  score += num
+  scoreText.innerText = score
+
+};
+
+function decrementTime() {
+  timeLeft -= 10
+  timer_h1.innerHTML = ':' + timeLeft;
+
+};
+
+startGame();
