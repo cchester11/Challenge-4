@@ -96,7 +96,6 @@ function generateQuestion() {
   const questionIndex = Math.floor(Math.random() * availableQuestions.length)
   currenQuestion =  availableQuestions[questionIndex]
   question.innerText = currentQuestion.question
-
   choices.forEach(choice => {
     const number = choice.dataset['number']
     choice.innerText = currentQuestion['choice' + number]
@@ -108,34 +107,8 @@ function generateQuestion() {
 
 };
 
-choice.forEach(choice => {
-  choice.addEventListener('click', x => {
-    const selectedChoice = x.target;
-    if (!selectedAnswer) return selectedAnswer = false;
-    const selected = selectedChoice.dataset['number'];
-    let applySelected = selected == currentQuestion.answer ? 'correct' : 'incorrect';
-
-    if (applySelected === 'correct') {
-      incrementScore (totalPoints);
-    } else {
-      decrementTime();
-    }
-
-    selectedChoice.parentElement.classList.add(applySelected);
-
-    setTimeOut(
-      () => {
-      selectedChoice.parentElement.classList.remove
-      (applySelected)
-      generateQuestion();
-
-    }, 
-      1000);
-  })
-})
-
-function incrementScore(num) {
-  score += num
+function incrementScore() {
+  score += totalPoints
   scoreText.innerText = score
 
 };
