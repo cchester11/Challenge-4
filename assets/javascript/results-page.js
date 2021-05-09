@@ -18,8 +18,8 @@ const scoreCountParameter = 5;
 
 finalScore.innerText = userScore;
 
-function saveHighScore(e) {
-    e.preventDefault();
+function saveHighScore(event) {
+    event.preventDefault();
 
     const score = {
         score: userScore,
@@ -33,4 +33,5 @@ function saveHighScore(e) {
     });
 
     localStorage.setItem('highScores', JSON.stringify(highScores));
+};
   
